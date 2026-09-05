@@ -1,0 +1,1648 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light dark">
+  <link rel="icon" href="data:,">
+  <title>SC5006 CountGD — Four-Member Work Plan</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --page: #f9f9f7;
+      --surface: #fcfcfb;
+      --surface-raised: #ffffff;
+      --surface-soft: #f3f3ef;
+      --ink: #0b0b0b;
+      --ink-secondary: #52514e;
+      --muted: #77756f;
+      --line: #e1e0d9;
+      --line-strong: #c3c2b7;
+      --member-1: #2a78d6;
+      --member-2: #eb6834;
+      --member-3: #1baf7a;
+      --member-4: #eda100;
+      --member-1-soft: #e7f1fc;
+      --member-2-soft: #fcece6;
+      --member-3-soft: #e4f5ef;
+      --member-4-soft: #fff3d7;
+      --info: #256abf;
+      --good: #0ca30c;
+      --warning: #8a5c00;
+      --shadow: 0 14px 35px rgba(11, 11, 11, 0.07);
+      --radius-lg: 18px;
+      --radius-md: 12px;
+      --radius-sm: 8px;
+      --content-width: 1180px;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      :root {
+        color-scheme: dark;
+        --page: #0d0d0d;
+        --surface: #1a1a19;
+        --surface-raised: #20201f;
+        --surface-soft: #242422;
+        --ink: #ffffff;
+        --ink-secondary: #c3c2b7;
+        --muted: #a09e98;
+        --line: #2c2c2a;
+        --line-strong: #383835;
+        --member-1: #3987e5;
+        --member-2: #d95926;
+        --member-3: #199e70;
+        --member-4: #c98500;
+        --member-1-soft: #17273a;
+        --member-2-soft: #352019;
+        --member-3-soft: #142e26;
+        --member-4-soft: #332a14;
+        --info: #6da7ec;
+        --good: #0ca30c;
+        --warning: #fab219;
+        --shadow: 0 14px 35px rgba(0, 0, 0, 0.26);
+      }
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      background: var(--page);
+      color: var(--ink);
+      font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+      font-size: 16px;
+      line-height: 1.55;
+    }
+
+    a {
+      color: var(--info);
+      text-underline-offset: 0.18em;
+    }
+
+    a:hover,
+    a:focus-visible {
+      text-decoration-thickness: 2px;
+    }
+
+    code {
+      padding: 0.1em 0.35em;
+      border: 1px solid var(--line);
+      border-radius: 5px;
+      background: var(--surface-soft);
+      font-family: "Cascadia Code", "SFMono-Regular", Consolas, monospace;
+      font-size: 0.88em;
+    }
+
+    .page-shell {
+      width: min(calc(100% - 32px), var(--content-width));
+      margin-inline: auto;
+    }
+
+    .hero {
+      padding: 54px 0 34px;
+      border-bottom: 1px solid var(--line);
+      background:
+        linear-gradient(100deg, color-mix(in srgb, var(--member-1) 8%, transparent), transparent 30%),
+        linear-gradient(260deg, color-mix(in srgb, var(--member-3) 8%, transparent), transparent 30%),
+        var(--surface);
+    }
+
+    .eyebrow {
+      margin: 0 0 8px;
+      color: var(--ink-secondary);
+      font-size: 0.79rem;
+      font-weight: 750;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    h1,
+    h2,
+    h3,
+    h4 {
+      margin-top: 0;
+      line-height: 1.18;
+      text-wrap: balance;
+    }
+
+    h1 {
+      max-width: 920px;
+      margin-bottom: 14px;
+      font-size: clamp(2rem, 5vw, 4rem);
+      letter-spacing: -0.045em;
+    }
+
+    .hero-summary {
+      max-width: 800px;
+      margin: 0;
+      color: var(--ink-secondary);
+      font-size: 1.08rem;
+    }
+
+    .hero-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 22px;
+    }
+
+    .pill,
+    .member-label,
+    .status-label {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      min-height: 28px;
+      padding: 4px 10px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: var(--surface-raised);
+      color: var(--ink-secondary);
+      font-size: 0.78rem;
+      font-weight: 700;
+      white-space: nowrap;
+    }
+
+    .member-label::before,
+    .legend-dot {
+      width: 9px;
+      height: 9px;
+      flex: 0 0 9px;
+      border-radius: 3px;
+      background: var(--member-color);
+      content: "";
+    }
+
+    .member-1 { --member-color: var(--member-1); --member-soft: var(--member-1-soft); }
+    .member-2 { --member-color: var(--member-2); --member-soft: var(--member-2-soft); }
+    .member-3 { --member-color: var(--member-3); --member-soft: var(--member-3-soft); }
+    .member-4 { --member-color: var(--member-4); --member-soft: var(--member-4-soft); }
+
+    .notice {
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 13px;
+      margin-top: 24px;
+      padding: 16px 18px;
+      border: 1px solid var(--line);
+      border-left: 4px solid var(--info);
+      border-radius: var(--radius-md);
+      background: var(--surface-raised);
+    }
+
+    .notice-icon {
+      display: grid;
+      width: 25px;
+      height: 25px;
+      place-items: center;
+      border-radius: 50%;
+      background: var(--info);
+      color: #fff;
+      font-size: 0.8rem;
+      font-weight: 850;
+    }
+
+    .notice p {
+      margin: 0;
+    }
+
+    .notice p + p {
+      margin-top: 5px;
+      color: var(--ink-secondary);
+    }
+
+    .section-nav {
+      position: sticky;
+      z-index: 10;
+      top: 0;
+      border-bottom: 1px solid var(--line);
+      background: color-mix(in srgb, var(--surface) 92%, transparent);
+      backdrop-filter: blur(12px);
+    }
+
+    .section-nav .page-shell {
+      display: flex;
+      gap: 5px;
+      overflow-x: auto;
+      padding-block: 9px;
+      scrollbar-width: thin;
+    }
+
+    .section-nav a {
+      padding: 7px 11px;
+      border-radius: 7px;
+      color: var(--ink-secondary);
+      font-size: 0.84rem;
+      font-weight: 700;
+      text-decoration: none;
+      white-space: nowrap;
+    }
+
+    .section-nav a:hover,
+    .section-nav a:focus-visible {
+      background: var(--surface-soft);
+      color: var(--ink);
+      outline: none;
+    }
+
+    main {
+      padding: 36px 0 64px;
+    }
+
+    section {
+      scroll-margin-top: 70px;
+      margin-bottom: 54px;
+    }
+
+    .section-heading {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      align-items: end;
+      gap: 20px;
+      margin-bottom: 18px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .section-heading h2 {
+      margin-bottom: 3px;
+      font-size: clamp(1.55rem, 3vw, 2.2rem);
+      letter-spacing: -0.025em;
+    }
+
+    .section-heading p {
+      max-width: 760px;
+      margin: 0;
+      color: var(--ink-secondary);
+    }
+
+    .section-index {
+      color: var(--muted);
+      font-size: 0.82rem;
+      font-weight: 800;
+      letter-spacing: 0.12em;
+    }
+
+    .grid {
+      display: grid;
+      gap: 16px;
+    }
+
+    .grid-2 {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .grid-4 {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+
+    .card {
+      border: 1px solid var(--line);
+      border-radius: var(--radius-lg);
+      background: var(--surface-raised);
+      box-shadow: var(--shadow);
+    }
+
+    .member-card {
+      position: relative;
+      overflow: clip;
+      padding: 20px;
+      border-top: 4px solid var(--member-color);
+    }
+
+    .member-card::after {
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 68px;
+      height: 68px;
+      border-radius: 0 0 0 68px;
+      background: var(--member-soft);
+      content: "";
+      pointer-events: none;
+    }
+
+    .member-card h3 {
+      position: relative;
+      z-index: 1;
+      margin-bottom: 6px;
+      font-size: 1.23rem;
+    }
+
+    .member-card .role {
+      min-height: 48px;
+      margin: 0 0 16px;
+      color: var(--ink-secondary);
+      font-size: 0.9rem;
+    }
+
+    .member-card dl {
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 7px 10px;
+      margin: 0;
+      font-size: 0.86rem;
+    }
+
+    .member-card dt {
+      color: var(--muted);
+      font-weight: 750;
+    }
+
+    .member-card dd {
+      margin: 0;
+      font-weight: 650;
+    }
+
+    .legend {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px 18px;
+      margin: 16px 0 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .legend li {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      color: var(--ink-secondary);
+      font-size: 0.82rem;
+      font-weight: 700;
+    }
+
+    .matrix-wrap,
+    .table-wrap {
+      overflow-x: auto;
+      border: 1px solid var(--line);
+      border-radius: var(--radius-md);
+      background: var(--surface-raised);
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.88rem;
+      font-variant-numeric: tabular-nums;
+    }
+
+    caption {
+      padding: 14px 15px 10px;
+      color: var(--ink-secondary);
+      font-weight: 750;
+      text-align: left;
+    }
+
+    th,
+    td {
+      padding: 12px 14px;
+      border-bottom: 1px solid var(--line);
+      text-align: left;
+      vertical-align: top;
+    }
+
+    th {
+      background: var(--surface-soft);
+      color: var(--ink-secondary);
+      font-size: 0.75rem;
+      font-weight: 800;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+
+    tr:last-child td {
+      border-bottom: 0;
+    }
+
+    tbody tr:hover {
+      background: color-mix(in srgb, var(--surface-soft) 65%, transparent);
+    }
+
+    .numeric {
+      text-align: right;
+      white-space: nowrap;
+    }
+
+    .owner-cell {
+      min-width: 124px;
+    }
+
+    .task-group {
+      display: grid;
+      grid-template-columns: 180px minmax(0, 1fr);
+      gap: 18px;
+      padding: 20px;
+      border: 1px solid var(--line);
+      border-left: 4px solid var(--member-color);
+      border-radius: var(--radius-md);
+      background: var(--surface-raised);
+    }
+
+    .task-group + .task-group {
+      margin-top: 14px;
+    }
+
+    .task-owner h3 {
+      margin: 8px 0 4px;
+      font-size: 1.08rem;
+    }
+
+    .task-owner p {
+      margin: 0;
+      color: var(--ink-secondary);
+      font-size: 0.82rem;
+    }
+
+    .task-body h4 {
+      margin: 0 0 7px;
+      font-size: 1rem;
+    }
+
+    .task-body p {
+      margin: 0 0 10px;
+      color: var(--ink-secondary);
+    }
+
+    ul.check-list,
+    ul.compact-list {
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    ul.check-list {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 7px 18px;
+    }
+
+    ul.check-list li,
+    ul.compact-list li {
+      position: relative;
+      padding-left: 22px;
+    }
+
+    ul.check-list li::before {
+      position: absolute;
+      top: 0.35em;
+      left: 0;
+      width: 12px;
+      height: 12px;
+      border: 1.5px solid var(--line-strong);
+      border-radius: 3px;
+      background: var(--surface);
+      content: "";
+    }
+
+    ul.compact-list li::before {
+      position: absolute;
+      top: 0.67em;
+      left: 6px;
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      background: var(--member-color, var(--muted));
+      content: "";
+    }
+
+    ul.compact-list li + li {
+      margin-top: 5px;
+    }
+
+    .handoff {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      align-items: stretch;
+      gap: 10px;
+      margin-top: 18px;
+    }
+
+    .handoff-step {
+      position: relative;
+      padding: 15px;
+      border: 1px solid var(--line);
+      border-top: 3px solid var(--member-color);
+      border-radius: var(--radius-md);
+      background: var(--surface-raised);
+    }
+
+    .handoff-step:not(:last-child)::after {
+      position: absolute;
+      top: 50%;
+      right: -9px;
+      z-index: 1;
+      color: var(--muted);
+      content: "→";
+      font-weight: 850;
+      transform: translateY(-50%);
+    }
+
+    .handoff-step strong,
+    .handoff-step span {
+      display: block;
+    }
+
+    .handoff-step strong {
+      font-size: 0.9rem;
+    }
+
+    .handoff-step span {
+      margin-top: 4px;
+      color: var(--ink-secondary);
+      font-size: 0.79rem;
+    }
+
+    .callout {
+      margin-top: 18px;
+      padding: 16px 18px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius-md);
+      background: var(--surface-soft);
+    }
+
+    .callout strong {
+      display: block;
+      margin-bottom: 4px;
+    }
+
+    .callout p {
+      margin: 0;
+      color: var(--ink-secondary);
+    }
+
+    .page-budget {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 12px;
+      margin-bottom: 18px;
+    }
+
+    .stat-tile {
+      padding: 17px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius-md);
+      background: var(--surface-raised);
+    }
+
+    .stat-tile .value {
+      display: block;
+      margin-bottom: 2px;
+      font-size: 1.7rem;
+      font-weight: 800;
+      line-height: 1.1;
+    }
+
+    .stat-tile .label {
+      color: var(--ink-secondary);
+      font-size: 0.8rem;
+      font-weight: 700;
+    }
+
+    .deliverables {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 12px;
+      margin-top: 16px;
+    }
+
+    .deliverable {
+      padding: 16px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius-md);
+      background: var(--surface-raised);
+    }
+
+    .deliverable strong {
+      display: block;
+      margin-bottom: 5px;
+    }
+
+    .deliverable p {
+      margin: 0;
+      color: var(--ink-secondary);
+      font-size: 0.84rem;
+    }
+
+    .slide-number {
+      display: inline-grid;
+      width: 28px;
+      height: 28px;
+      place-items: center;
+      border: 1px solid var(--line-strong);
+      border-radius: 7px;
+      background: var(--surface);
+      font-weight: 800;
+    }
+
+    .speaker-total {
+      font-weight: 800;
+    }
+
+    .tbd {
+      color: var(--warning);
+      font-weight: 800;
+    }
+
+    .review-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .review-card {
+      padding: 17px;
+      border: 1px solid var(--line);
+      border-bottom: 3px solid var(--member-color);
+      border-radius: var(--radius-md);
+      background: var(--surface-raised);
+    }
+
+    .review-card h3 {
+      margin-bottom: 8px;
+      font-size: 1rem;
+    }
+
+    .review-card p {
+      margin: 0;
+      color: var(--ink-secondary);
+      font-size: 0.84rem;
+    }
+
+    .timeline {
+      counter-reset: phase;
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .phase {
+      position: relative;
+      padding: 18px 18px 18px 54px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius-md);
+      background: var(--surface-raised);
+      counter-increment: phase;
+    }
+
+    .phase::before {
+      position: absolute;
+      top: 18px;
+      left: 17px;
+      display: grid;
+      width: 26px;
+      height: 26px;
+      place-items: center;
+      border-radius: 50%;
+      background: var(--ink);
+      color: var(--surface);
+      content: counter(phase);
+      font-size: 0.78rem;
+      font-weight: 850;
+    }
+
+    .phase h3 {
+      margin-bottom: 5px;
+      font-size: 0.98rem;
+    }
+
+    .phase p {
+      margin: 0;
+      color: var(--ink-secondary);
+      font-size: 0.83rem;
+    }
+
+    footer {
+      padding: 26px 0 40px;
+      border-top: 1px solid var(--line);
+      color: var(--ink-secondary);
+      font-size: 0.82rem;
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 20px;
+      align-items: start;
+    }
+
+    .footer-grid p {
+      margin: 0;
+    }
+
+    @media (max-width: 940px) {
+      .grid-4,
+      .page-budget,
+      .review-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .handoff,
+      .timeline {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .handoff-step::after {
+        display: none;
+      }
+    }
+
+    @media (max-width: 700px) {
+      .page-shell {
+        width: min(calc(100% - 22px), var(--content-width));
+      }
+
+      .hero {
+        padding-top: 36px;
+      }
+
+      .grid-2,
+      .grid-4,
+      .page-budget,
+      .deliverables,
+      .review-grid,
+      .timeline,
+      .handoff {
+        grid-template-columns: 1fr;
+      }
+
+      .task-group {
+        grid-template-columns: 1fr;
+      }
+
+      ul.check-list {
+        grid-template-columns: 1fr;
+      }
+
+      .section-heading {
+        grid-template-columns: 1fr;
+      }
+
+      .section-index {
+        order: -1;
+      }
+    }
+
+    @media print {
+      :root {
+        color-scheme: light;
+        --page: #ffffff;
+        --surface: #ffffff;
+        --surface-raised: #ffffff;
+        --surface-soft: #f4f4f1;
+        --ink: #000000;
+        --ink-secondary: #333333;
+        --muted: #555555;
+        --line: #d7d7d2;
+        --line-strong: #a9a9a4;
+        --shadow: none;
+      }
+
+      @page {
+        size: A4;
+        margin: 14mm;
+      }
+
+      body {
+        font-size: 10pt;
+      }
+
+      .page-shell {
+        width: 100%;
+      }
+
+      .hero {
+        padding: 0 0 18px;
+        background: #ffffff;
+      }
+
+      .section-nav {
+        display: none;
+      }
+
+      main {
+        padding: 20px 0 0;
+      }
+
+      section {
+        margin-bottom: 30px;
+      }
+
+      .card,
+      .task-group,
+      .table-wrap,
+      .matrix-wrap,
+      .phase,
+      .review-card,
+      .deliverable,
+      .stat-tile,
+      .callout,
+      .notice {
+        box-shadow: none;
+        break-inside: avoid;
+      }
+
+      h2,
+      h3,
+      h4,
+      table caption {
+        break-after: avoid;
+      }
+
+      table {
+        font-size: 8.4pt;
+      }
+
+      tr {
+        break-inside: avoid;
+      }
+
+      a {
+        color: inherit;
+        text-decoration: none;
+      }
+
+      footer {
+        padding-bottom: 0;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="hero">
+    <div class="page-shell">
+      <p class="eyebrow">SC5006 Computer Vision · Project 1</p>
+      <h1>CountGD project work plan</h1>
+      <p class="hero-summary">
+        A consistent four-member allocation covering the notebook implementation, 6–8-page report,
+        and 10-minute presentation. Work is balanced by estimated effort and difficulty rather than
+        assignment marks alone.
+      </p>
+      <div class="hero-meta" aria-label="Confirmed project planning decisions">
+        <span class="pill">Static offline HTML</span>
+        <span class="pill">Academic dashboard</span>
+        <span class="pill">PDF instructions govern</span>
+        <span class="pill">No live results collected yet</span>
+      </div>
+      <div class="notice">
+        <span class="notice-icon" aria-hidden="true">i</span>
+        <div>
+          <p><strong>Member names are intentionally placeholders.</strong></p>
+          <p>
+            When names are confirmed, replace “Member 1” through “Member 4” globally. The same labels
+            are used everywhere so notebook, report, slide, and review ownership cannot drift.
+          </p>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <nav class="section-nav" aria-label="Plan sections">
+    <div class="page-shell">
+      <a href="#allocation">Allocation</a>
+      <a href="#notebook">Notebook</a>
+      <a href="#report">Report</a>
+      <a href="#presentation">Presentation</a>
+      <a href="#review">Review</a>
+      <a href="#workflow">Workflow</a>
+      <a href="#definition-of-done">Completion</a>
+    </div>
+  </nav>
+
+  <main class="page-shell">
+    <section id="allocation">
+      <div class="section-heading">
+        <div>
+          <h2>Four-member allocation</h2>
+          <p>
+            Five assessed components are assigned across four members. Similarity and Top-K are paired
+            because they are tightly connected and shorter than the encoder tasks.
+          </p>
+        </div>
+        <span class="section-index">01 · OWNERSHIP</span>
+      </div>
+
+      <div class="grid grid-4">
+        <article class="card member-card member-1">
+          <h3>Member 1</h3>
+          <p class="role">Image encoder and official baseline execution</p>
+          <dl>
+            <dt>Notebook</dt><dd>Task 1 + setup checks</dd>
+            <dt>Integration</dt><dd>Four baseline live runs</dd>
+            <dt>Report</dt><dd>Introduction, image path, setup</dd>
+            <dt>Slides</dt><dd>Opening, pipeline, image encoder</dd>
+            <dt>Reviewer</dt><dd>Member 2</dd>
+          </dl>
+        </article>
+
+        <article class="card member-card member-2">
+          <h3>Member 2</h3>
+          <p class="role">Text encoder and prompt-sensitivity experiment</p>
+          <dl>
+            <dt>Notebook</dt><dd>Task 2 + changed prompts</dd>
+            <dt>Integration</dt><dd>Phrase-aware scoring</dd>
+            <dt>Report</dt><dd>Related work, text, sensitivity</dd>
+            <dt>Slides</dt><dd>Text, protocol, conclusion</dd>
+            <dt>Reviewer</dt><dd>Member 3</dd>
+          </dl>
+        </article>
+
+        <article class="card member-card member-3">
+          <h3>Member 3</h3>
+          <p class="role">ROIAlign, localization figures, and failure analysis</p>
+          <dl>
+            <dt>Notebook</dt><dd>Task 3 + negative test</dd>
+            <dt>Integration</dt><dd>Plots, ablation, failure</dd>
+            <dt>Report</dt><dd>ROIAlign and qualitative analysis</dd>
+            <dt>Slides</dt><dd>ROIAlign and failure analysis</dd>
+            <dt>Reviewer</dt><dd>Member 4</dd>
+          </dl>
+        </article>
+
+        <article class="card member-card member-4">
+          <h3>Member 4</h3>
+          <p class="role">Similarity, Top-K, and quantitative validation</p>
+          <dl>
+            <dt>Notebook</dt><dd>Tasks 4–5</dd>
+            <dt>Integration</dt><dd>Post-processing and tables</dd>
+            <dt>Report</dt><dd>Similarity, Top-K, baseline results</dd>
+            <dt>Slides</dt><dd>Ranking and main results</dd>
+            <dt>Reviewer</dt><dd>Member 1</dd>
+          </dl>
+        </article>
+      </div>
+
+      <ul class="legend" aria-label="Member color key">
+        <li class="member-1"><span class="legend-dot" aria-hidden="true"></span>Member 1 · blue · M1</li>
+        <li class="member-2"><span class="legend-dot" aria-hidden="true"></span>Member 2 · orange · M2</li>
+        <li class="member-3"><span class="legend-dot" aria-hidden="true"></span>Member 3 · aqua · M3</li>
+        <li class="member-4"><span class="legend-dot" aria-hidden="true"></span>Member 4 · yellow · M4</li>
+      </ul>
+
+      <div class="table-wrap" style="margin-top: 18px;">
+        <table>
+          <caption>Estimated workload balance — planning units, not marks</caption>
+          <thead>
+            <tr>
+              <th scope="col">Member</th>
+              <th scope="col" class="numeric">Core code/testing</th>
+              <th scope="col" class="numeric">Task 6/integration</th>
+              <th scope="col" class="numeric">Report/figures</th>
+              <th scope="col" class="numeric">Slides</th>
+              <th scope="col" class="numeric">Peer review</th>
+              <th scope="col" class="numeric">Total</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td><span class="member-label member-1">Member 1</span></td><td class="numeric">5</td><td class="numeric">5</td><td class="numeric">4</td><td class="numeric">3</td><td class="numeric">1</td><td class="numeric"><strong>18</strong></td></tr>
+            <tr><td><span class="member-label member-2">Member 2</span></td><td class="numeric">6</td><td class="numeric">5</td><td class="numeric">4</td><td class="numeric">3</td><td class="numeric">1</td><td class="numeric"><strong>19</strong></td></tr>
+            <tr><td><span class="member-label member-3">Member 3</span></td><td class="numeric">4</td><td class="numeric">6</td><td class="numeric">5</td><td class="numeric">3</td><td class="numeric">1</td><td class="numeric"><strong>19</strong></td></tr>
+            <tr><td><span class="member-label member-4">Member 4</span></td><td class="numeric">6</td><td class="numeric">5</td><td class="numeric">4</td><td class="numeric">3</td><td class="numeric">1</td><td class="numeric"><strong>19</strong></td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="callout">
+        <strong>Fairness rule</strong>
+        <p>
+          Record actual hours after the first successful integration run. If any member is more than
+          approximately 10% above the group average, transfer a remaining figure, table, verification,
+          or editing task before final submission.
+        </p>
+      </div>
+    </section>
+
+    <section id="notebook">
+      <div class="section-heading">
+        <div>
+          <h2>Notebook structure and ownership</h2>
+          <p>
+            Preserve the supplied cell order and function interfaces. Every owner supplies code, tests,
+            evidence, and a short interpretation—not code alone.
+          </p>
+        </div>
+        <span class="section-index">02 · NOTEBOOK</span>
+      </div>
+
+      <article class="task-group member-1">
+        <div class="task-owner">
+          <span class="member-label member-1">Member 1</span>
+          <h3>Setup + Task 1</h3>
+          <p>Image encoder and raw baseline runs</p>
+        </div>
+        <div class="task-body">
+          <h4>Environment, model setup, and <code>encode_image</code></h4>
+          <ul class="check-list">
+            <li>Use the required Python 3.9 environment and package versions.</li>
+            <li>Verify checkpoint SHA-256 and zero key mismatches.</li>
+            <li>Record Python, PyTorch, CUDA, CPU/GPU, and model paths.</li>
+            <li>Accept both <code>(B,3,H,W)</code> and lists of <code>(3,H,W)</code>.</li>
+            <li>Create a CountGD <code>NestedTensor</code> on the model device.</li>
+            <li>Run <code>model.backbone</code> under inference mode.</li>
+            <li>Run <code>model.combine_features</code>.</li>
+            <li>Return feature list, positional encodings, and combined map.</li>
+            <li>Print input, mask, multi-scale, position, and combined shapes.</li>
+            <li>Visualize channel-wise mean activation at every scale.</li>
+            <li>Run and time the four required baseline forward passes.</li>
+            <li>Save raw predictions for Members 3 and 4.</li>
+          </ul>
+        </div>
+      </article>
+
+      <article class="task-group member-2">
+        <div class="task-owner">
+          <span class="member-label member-2">Member 2</span>
+          <h3>Task 2 + Task 6 sensitivity</h3>
+          <p>Text encoding and changed prompts</p>
+        </div>
+        <div class="task-body">
+          <h4><code>encode_text</code> and phrase-aware prompt evaluation</h4>
+          <ul class="check-list">
+            <li>Tokenize a non-empty caption batch with longest-sequence padding.</li>
+            <li>Generate special-token attention masks and position IDs.</li>
+            <li>Apply <code>max_text_len</code> truncation consistently.</li>
+            <li>Run BERT and <code>model.feat_map</code> under inference mode.</li>
+            <li>Return encoded text, valid-token mask, positions, and attention metadata.</li>
+            <li>Use unequal caption lengths to demonstrate real padding.</li>
+            <li>Create a token/ID/mask/position table and mask visualization.</li>
+            <li>Implement <code>phrase_token_indices</code>.</li>
+            <li>Exclude special tokens, padding, and punctuation.</li>
+            <li>Implement confidence-product phrase post-processing at 0.50.</li>
+            <li>Run fresh inference for “man” and “yellow car”.</li>
+            <li>Compare changed and original prompts using the same phrase rule.</li>
+          </ul>
+        </div>
+      </article>
+
+      <article class="task-group member-3">
+        <div class="task-owner">
+          <span class="member-label member-3">Member 3</span>
+          <h3>Task 3 + visual analysis</h3>
+          <p>ROIAlign, plots, ablation, failure</p>
+        </div>
+        <div class="task-body">
+          <h4><code>extract_exemplar_tokens</code> and qualitative evidence</h4>
+          <ul class="check-list">
+            <li>Validate <code>(B,D,H,W)</code> combined features.</li>
+            <li>Validate one finite, positive-area <code>(N,4)</code> box tensor per image.</li>
+            <li>Enforce resized pixel-space <code>xyxy</code> coordinates.</li>
+            <li>Use <code>output_size=(1,1)</code>, <code>spatial_scale=1/8</code>, and <code>aligned=True</code>.</li>
+            <li>Return exemplar tokens shaped <code>(B,N,D)</code>.</li>
+            <li>Overlay the original/resized exemplar box on the car image.</li>
+            <li>Demonstrate and explain the normalized-box error.</li>
+            <li>Create the four-case baseline localization figure.</li>
+            <li>Create the changed-prompt localization figure.</li>
+            <li>Compare car text-only, exemplar-only, and multimodal outputs.</li>
+            <li>Select one failure only after inspecting live evidence.</li>
+            <li>Annotate the failure and propose a measured, cautious explanation.</li>
+          </ul>
+        </div>
+      </article>
+
+      <article class="task-group member-4">
+        <div class="task-owner">
+          <span class="member-label member-4">Member 4</span>
+          <h3>Tasks 4–5 + validation</h3>
+          <p>Similarity, Top-K, quantitative results</p>
+        </div>
+        <div class="task-body">
+          <h4><code>calculate_similarity_matrix</code>, <code>select_topk</code>, and result checks</h4>
+          <ul class="check-list">
+            <li>Validate query <code>(B,N,D)</code>, prompt <code>(B,T,D)</code>, and mask <code>(B,T)</code>.</li>
+            <li>Compute batched query–prompt dot products.</li>
+            <li>Replace invalid prompt columns with <code>-inf</code>.</li>
+            <li>Add a deterministic test containing a genuinely padded column.</li>
+            <li>Create a readable, token-labelled similarity heatmap.</li>
+            <li>Reduce each proposal to its strongest prompt score and ID.</li>
+            <li>Run <code>torch.topk</code> over proposals and gather prompt IDs.</li>
+            <li>Verify descending scores and exact proposal/prompt indexing.</li>
+            <li>Explain that Top-K is not non-maximum suppression.</li>
+            <li>Validate standard post-processing at baseline threshold 0.23.</li>
+            <li>Check raw output shapes <code>(900,256)</code> and <code>(900,4)</code>.</li>
+            <li>Compile counts, errors, score summaries, and runtime tables.</li>
+          </ul>
+        </div>
+      </article>
+
+      <h3 style="margin-top: 26px;">Data hand-offs</h3>
+      <div class="handoff" aria-label="Notebook data hand-off sequence">
+        <div class="handoff-step member-1">
+          <strong>Member 1 · Raw evidence</strong>
+          <span>Features, positions, raw logits, boxes, and timings.</span>
+        </div>
+        <div class="handoff-step member-2">
+          <strong>Member 2 · Prompt evidence</strong>
+          <span>Text masks, phrase indices, and changed-prompt outputs.</span>
+        </div>
+        <div class="handoff-step member-4">
+          <strong>Member 4 · Quantitative results</strong>
+          <span>Post-processed counts, errors, scores, and ranked proposals.</span>
+        </div>
+        <div class="handoff-step member-3">
+          <strong>Member 3 · Visual analysis</strong>
+          <span>Localization plots, ablation comparison, and failure figure.</span>
+        </div>
+      </div>
+
+      <div class="callout">
+        <strong>Required threshold separation</strong>
+        <p>
+          The four official baselines use the CountGD threshold <strong>0.23</strong>. The changed-prompt
+          phrase-product study uses its separately specified threshold <strong>0.50</strong>. Every table
+          and figure must name which rule it uses.
+        </p>
+      </div>
+    </section>
+
+    <section id="report">
+      <div class="section-heading">
+        <div>
+          <h2>Report structure</h2>
+          <p>
+            Target approximately seven pages, excluding references and appendix. Put the title and
+            authors at the top of page 1 rather than using a separate full-page cover.
+          </p>
+        </div>
+        <span class="section-index">03 · REPORT</span>
+      </div>
+
+      <div class="page-budget" aria-label="Report summary">
+        <div class="stat-tile"><span class="value">6–8</span><span class="label">Required body pages</span></div>
+        <div class="stat-tile"><span class="value">≈7</span><span class="label">Recommended target</span></div>
+        <div class="stat-tile"><span class="value">4</span><span class="label">Core figures</span></div>
+        <div class="stat-tile"><span class="value">3</span><span class="label">Core tables</span></div>
+      </div>
+
+      <div class="table-wrap">
+        <table>
+          <caption>Section-by-section report plan</caption>
+          <thead>
+            <tr>
+              <th scope="col">Section</th>
+              <th scope="col">Primary owner</th>
+              <th scope="col">Target space</th>
+              <th scope="col">Required content and argument</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Title and authors</strong></td>
+              <td class="owner-cell">Group</td>
+              <td>Top of page 1</td>
+              <td>Team identifier, four names, course/project, and a precise CountGD-focused title.</td>
+            </tr>
+            <tr>
+              <td><strong>1. Introduction</strong></td>
+              <td class="owner-cell"><span class="member-label member-1">Member 1</span></td>
+              <td>≈0.6 page</td>
+              <td>Open-world counting problem, motivation for multimodal prompts, five component objectives, integration and sensitivity questions. Do not claim uncollected results.</td>
+            </tr>
+            <tr>
+              <td><strong>2. Related Work</strong></td>
+              <td class="owner-cell"><span class="member-label member-2">Member 2</span></td>
+              <td>≈0.6 page</td>
+              <td>Open/few-shot counting, vision-language grounding, CountGD, and only the architectural sources actually discussed: BERT, Swin, ROIAlign, Grounding DINO, FSC-147 where relevant.</td>
+            </tr>
+            <tr>
+              <td><strong>3.1 Pipeline overview</strong></td>
+              <td class="owner-cell"><span class="member-label member-4">Member 4</span></td>
+              <td>≈0.35 page</td>
+              <td>One original end-to-end architecture figure connecting image/text encoders, ROIAlign, similarity, Top-K, decoder output, thresholding, and counting.</td>
+            </tr>
+            <tr>
+              <td><strong>3.2 Image encoder</strong></td>
+              <td class="owner-cell"><span class="member-label member-1">Member 1</span></td>
+              <td>≈0.4 page</td>
+              <td>NestedTensor, Swin multi-scale outputs, resize/concatenate/project operation, 1/8 combined map, and observed shapes.</td>
+            </tr>
+            <tr>
+              <td><strong>3.3 Text encoder</strong></td>
+              <td class="owner-cell"><span class="member-label member-2">Member 2</span></td>
+              <td>≈0.4 page</td>
+              <td>Tokenization, special-token attention, padding validity, BERT hidden states, and projection into the shared 256-dimensional space.</td>
+            </tr>
+            <tr>
+              <td><strong>3.4 ROIAlign</strong></td>
+              <td class="owner-cell"><span class="member-label member-3">Member 3</span></td>
+              <td>≈0.4 page</td>
+              <td>Pixel-space resized box, 1/8 spatial scale, aligned 1×1 extraction, output shape, equation/pseudocode, and normalized-coordinate mistake.</td>
+            </tr>
+            <tr>
+              <td><strong>3.5 Similarity matrix</strong></td>
+              <td class="owner-cell"><span class="member-label member-4">Member 4</span></td>
+              <td>≈0.35 page</td>
+              <td>Dot-product equation, row/column meaning, validity mask, and why padding logits become negative infinity.</td>
+            </tr>
+            <tr>
+              <td><strong>3.6 Top-K selection</strong></td>
+              <td class="owner-cell"><span class="member-label member-4">Member 4</span></td>
+              <td>≈0.35 page</td>
+              <td>Row-wise maximum, winning prompt IDs, Top-K equation/pseudocode, descending-order verification, and distinction from NMS.</td>
+            </tr>
+            <tr>
+              <td><strong>3.7 Prediction and count rule</strong></td>
+              <td class="owner-cell"><span class="member-label member-4">Member 4</span></td>
+              <td>≈0.25 page</td>
+              <td>Raw 900-query output, sigmoid confidence, centre-box conversion, standard threshold 0.23, and separate phrase-product rule.</td>
+            </tr>
+            <tr>
+              <td><strong>4. Experiments</strong></td>
+              <td class="owner-cell"><span class="member-label member-1">Member 1</span> <span class="member-label member-2">Member 2</span></td>
+              <td>≈0.9 page</td>
+              <td>M1: checkpoint, software, hardware, images, exemplar, timing, and four baselines. M2: changed prompts, meaningful tokens, fair phrase-aware comparison, and 0.50 threshold.</td>
+            </tr>
+            <tr>
+              <td><strong>5.1 Component evidence</strong></td>
+              <td class="owner-cell">All, assembled by <span class="member-label member-4">Member 4</span></td>
+              <td>≈0.45 page</td>
+              <td>Compact tensor-shape table and multi-panel evidence figure. Each member supplies and verifies their component row/panel.</td>
+            </tr>
+            <tr>
+              <td><strong>5.2 Baseline results</strong></td>
+              <td class="owner-cell"><span class="member-label member-4">Member 4</span></td>
+              <td>≈0.55 page</td>
+              <td>Expected versus live count, absolute error, confidence summary, runtime, and four-case localization evidence.</td>
+            </tr>
+            <tr>
+              <td><strong>5.3 Modality ablation and failure</strong></td>
+              <td class="owner-cell"><span class="member-label member-3">Member 3</span></td>
+              <td>≈0.55 page</td>
+              <td>Controlled car prompt-mode comparison, localization differences, one observed annotated failure, cautious explanation, and proposed remedy.</td>
+            </tr>
+            <tr>
+              <td><strong>5.4 Prompt sensitivity</strong></td>
+              <td class="owner-cell"><span class="member-label member-2">Member 2</span></td>
+              <td>≈0.45 page</td>
+              <td>Original versus changed phrases under the same phrase-aware rule, meaningful token columns, counts, boxes, and measured interpretation.</td>
+            </tr>
+            <tr>
+              <td><strong>6. Conclusion and Limitations</strong></td>
+              <td class="owner-cell"><span class="member-label member-2">Member 2</span></td>
+              <td>≈0.4 page</td>
+              <td>Answer the project objectives using live evidence; state dataset, metric, threshold, prompt-composition, and duplicate-prediction limitations that are actually supported.</td>
+            </tr>
+            <tr>
+              <td><strong>Contribution statement</strong></td>
+              <td class="owner-cell">Group</td>
+              <td>≈0.15 page</td>
+              <td>List actual—not planned—component, integration, writing, reviewing, and presentation contributions for all four members.</td>
+            </tr>
+            <tr>
+              <td><strong>References</strong></td>
+              <td class="owner-cell"><span class="member-label member-2">Member 2</span>, verified by group</td>
+              <td>Excluded</td>
+              <td>One consistent citation style; every bibliography entry cited in text and every borrowed idea/figure attributed.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="deliverables">
+        <article class="deliverable">
+          <strong>Figure 1 · Pipeline</strong>
+          <p>Owner: Member 4. Members 1–3 verify labels and observed tensor shapes for their stages.</p>
+        </article>
+        <article class="deliverable">
+          <strong>Figure 2 · Component evidence</strong>
+          <p>Owner: Member 3. Every member supplies their own panel and caption facts.</p>
+        </article>
+        <article class="deliverable">
+          <strong>Figure 3 · Baseline localization</strong>
+          <p>Owner: Member 3, using Member 1’s live outputs and Member 4’s counts.</p>
+        </article>
+        <article class="deliverable">
+          <strong>Figure 4 · Sensitivity/failure</strong>
+          <p>Owner: Member 3. Member 2 supplies prompt results; failure remains TBD until live inspection.</p>
+        </article>
+        <article class="deliverable">
+          <strong>Tables 1–2 · Shapes and baselines</strong>
+          <p>Owner: Member 4. Values must match the final notebook exactly.</p>
+        </article>
+        <article class="deliverable">
+          <strong>Table 3 · Prompt comparison</strong>
+          <p>Owner: Member 2. Member 3 verifies the qualitative interpretation.</p>
+        </article>
+      </div>
+
+      <div class="callout">
+        <strong>Evidence policy</strong>
+        <p>
+          Assignment-provided expected counts are validation targets, not measured results. Replace every
+          <span class="tbd">TBD after live run</span> with genuine outputs before writing conclusions.
+        </p>
+      </div>
+    </section>
+
+    <section id="presentation">
+      <div class="section-heading">
+        <div>
+          <h2>Presentation structure</h2>
+          <p>
+            One title slide plus ten content slides, satisfying the PDF requirement of 8–10 content
+            slides. The timing target leaves a small buffer within the 10-minute limit.
+          </p>
+        </div>
+        <span class="section-index">04 · PRESENTATION</span>
+      </div>
+
+      <div class="table-wrap">
+        <table>
+          <caption>Slide sequence, ownership, visual evidence, and timing</caption>
+          <thead>
+            <tr>
+              <th scope="col">Slide</th>
+              <th scope="col">Presenter</th>
+              <th scope="col">Purpose and content</th>
+              <th scope="col">Primary visual/evidence</th>
+              <th scope="col" class="numeric">Time</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><span class="slide-number">T</span> <strong>Title</strong></td>
+              <td><span class="member-label member-1">Member 1</span></td>
+              <td>Project title, team identifier, four names, and one-sentence research question.</td>
+              <td>One representative CountGD localization image.</td>
+              <td class="numeric">0:15</td>
+            </tr>
+            <tr>
+              <td><span class="slide-number">1</span> <strong>Problem and objectives</strong></td>
+              <td><span class="member-label member-1">Member 1</span></td>
+              <td>Open-world counting, multimodal prompting, five components, and experiment questions.</td>
+              <td>Women/car examples with text and exemplar prompt icons.</td>
+              <td class="numeric">0:40</td>
+            </tr>
+            <tr>
+              <td><span class="slide-number">2</span> <strong>End-to-end pipeline</strong></td>
+              <td><span class="member-label member-1">Member 1</span></td>
+              <td>Connect image/text encoding, ROIAlign, similarity, Top-K, decoder output, and counting.</td>
+              <td>Simplified architecture diagram with numbered components.</td>
+              <td class="numeric">0:45</td>
+            </tr>
+            <tr>
+              <td><span class="slide-number">3</span> <strong>Image encoder</strong></td>
+              <td><span class="member-label member-1">Member 1</span></td>
+              <td>NestedTensor, Swin multi-scale outputs, 1/8 combined map, and interpretation.</td>
+              <td>Observed shape summary plus mean-activation panels.</td>
+              <td class="numeric">0:50</td>
+            </tr>
+            <tr>
+              <td><span class="slide-number">4</span> <strong>Text encoder</strong></td>
+              <td><span class="member-label member-2">Member 2</span></td>
+              <td>Tokenization, attention structures, projected tokens, and valid versus padded columns.</td>
+              <td>Compact token/mask table and attention-mask image.</td>
+              <td class="numeric">1:00</td>
+            </tr>
+            <tr>
+              <td><span class="slide-number">5</span> <strong>ROIAlign exemplar</strong></td>
+              <td><span class="member-label member-3">Member 3</span></td>
+              <td>How a resized pixel-space exemplar box becomes one 256-dimensional visual token.</td>
+              <td>Car box overlay, 1/8 scale diagram, and normalized-box warning.</td>
+              <td class="numeric">0:55</td>
+            </tr>
+            <tr>
+              <td><span class="slide-number">6</span> <strong>Similarity and Top-K</strong></td>
+              <td><span class="member-label member-4">Member 4</span></td>
+              <td>Dot products, padding mask, row-wise maximum, prompt IDs, proposal ranking, and why Top-K is not NMS.</td>
+              <td>Similarity heatmap plus a short ranked-proposal table.</td>
+              <td class="numeric">1:00</td>
+            </tr>
+            <tr>
+              <td><span class="slide-number">7</span> <strong>Experimental protocol</strong></td>
+              <td><span class="member-label member-2">Member 2</span></td>
+              <td>Four baselines, three car prompt modes, changed prompts, checkpoint, hardware, and the two clearly separated thresholds.</td>
+              <td>Six-row experiment matrix and protocol callouts.</td>
+              <td class="numeric">0:45</td>
+            </tr>
+            <tr>
+              <td><span class="slide-number">8</span> <strong>Main quantitative results</strong></td>
+              <td><span class="member-label member-4">Member 4</span></td>
+              <td>Expected versus predicted count, absolute error, runtime, and core comparison. Values remain TBD until live execution.</td>
+              <td>Compact baseline table plus selected localization panels.</td>
+              <td class="numeric">1:10</td>
+            </tr>
+            <tr>
+              <td><span class="slide-number">9</span> <strong>Ablation and failure</strong></td>
+              <td><span class="member-label member-3">Member 3</span></td>
+              <td>Car modality comparison, localization differences, one observed failure, cautious cause, and proposed remedy.</td>
+              <td>Three-mode comparison and one annotated failure region.</td>
+              <td class="numeric">1:15</td>
+            </tr>
+            <tr>
+              <td><span class="slide-number">10</span> <strong>Sensitivity and conclusions</strong></td>
+              <td><span class="member-label member-2">Member 2</span></td>
+              <td>Changed-prompt findings, three project takeaways, supported limitations, and transition to Q&amp;A.</td>
+              <td>Original/changed comparison plus three concise takeaways.</td>
+              <td class="numeric">0:55</td>
+            </tr>
+          </tbody>
+          <tfoot>
+            <tr>
+              <th scope="row" colspan="4">Planned spoken content</th>
+              <td class="numeric"><strong>9:30</strong></td>
+            </tr>
+            <tr>
+              <th scope="row" colspan="4">Transition and safety buffer</th>
+              <td class="numeric"><strong>0:30</strong></td>
+            </tr>
+          </tfoot>
+        </table>
+      </div>
+
+      <div class="table-wrap" style="margin-top: 16px;">
+        <table>
+          <caption>Approximate speaking balance</caption>
+          <thead><tr><th scope="col">Member</th><th scope="col">Owned material</th><th scope="col" class="numeric">Approximate time</th></tr></thead>
+          <tbody>
+            <tr><td><span class="member-label member-1">Member 1</span></td><td>Title and slides 1–3</td><td class="numeric speaker-total">2:30</td></tr>
+            <tr><td><span class="member-label member-2">Member 2</span></td><td>Slides 4, 7, and 10</td><td class="numeric speaker-total">2:40</td></tr>
+            <tr><td><span class="member-label member-3">Member 3</span></td><td>Slides 5 and 9</td><td class="numeric speaker-total">2:10</td></tr>
+            <tr><td><span class="member-label member-4">Member 4</span></td><td>Slides 6 and 8</td><td class="numeric speaker-total">2:10</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="callout">
+        <strong>Presentation design rule</strong>
+        <p>
+          Each slide should make one claim and show its evidence. Do not paste notebook code or read
+          tables aloud. Keep complete token tables, shape details, box conversion, and Top-K rows as
+          Q&amp;A notes or appendix slides only if the instructor permits appendix slides.
+        </p>
+      </div>
+    </section>
+
+    <section id="review">
+      <div class="section-heading">
+        <div>
+          <h2>Cross-review and final editing</h2>
+          <p>
+            Review means independently running the assigned work, checking its evidence, and confirming
+            the explanation—not merely proofreading it.
+          </p>
+        </div>
+        <span class="section-index">05 · QUALITY</span>
+      </div>
+
+      <div class="review-grid">
+        <article class="review-card member-1">
+          <h3>Member 1 reviews Member 4</h3>
+          <p>Check similarity/Top-K indexing, baseline threshold, shape assertions, count table, and end-to-end numerical consistency.</p>
+        </article>
+        <article class="review-card member-2">
+          <h3>Member 2 reviews Member 1</h3>
+          <p>Check image input forms, device handling, feature shapes, activation labels, checkpoint evidence, and baseline run provenance.</p>
+        </article>
+        <article class="review-card member-3">
+          <h3>Member 3 reviews Member 2</h3>
+          <p>Check token masks, phrase-token selection, fresh changed-prompt inference, threshold labels, and fair original/changed comparison.</p>
+        </article>
+        <article class="review-card member-4">
+          <h3>Member 4 reviews Member 3</h3>
+          <p>Check ROIAlign coordinates and shape, normalized-box error, localization/count consistency, and evidence behind the failure claim.</p>
+        </article>
+      </div>
+
+      <h3 style="margin-top: 24px;">Four-pass report and slide review</h3>
+      <div class="grid grid-2">
+        <article class="task-group member-1">
+          <div class="task-owner"><span class="member-label member-1">Member 1</span></div>
+          <div class="task-body"><h4>Technical and reproducibility pass</h4><p>Check model identity, environment, shapes, thresholds, timing protocol, and whether evidence was generated live.</p></div>
+        </article>
+        <article class="task-group member-2">
+          <div class="task-owner"><span class="member-label member-2">Member 2</span></div>
+          <div class="task-body"><h4>Language and citation pass</h4><p>Check terminology, grammar, citation completeness, reference consistency, and whether conclusions match measured evidence.</p></div>
+        </article>
+        <article class="task-group member-3">
+          <div class="task-owner"><span class="member-label member-3">Member 3</span></div>
+          <div class="task-body"><h4>Visual and layout pass</h4><p>Check figure readability, captions, legends, box colours, page limits, slide density, and print/export quality.</p></div>
+        </article>
+        <article class="task-group member-4">
+          <div class="task-owner"><span class="member-label member-4">Member 4</span></div>
+          <div class="task-body"><h4>Numerical and requirement pass</h4><p>Check that every number matches the notebook and every PDF requirement appears in notebook, report, or presentation.</p></div>
+        </article>
+      </div>
+    </section>
+
+    <section id="workflow">
+      <div class="section-heading">
+        <div>
+          <h2>Shared workflow</h2>
+          <p>
+            Use one results freeze point so the notebook, report, and slides never describe different runs.
+          </p>
+        </div>
+        <span class="section-index">06 · SEQUENCE</span>
+      </div>
+
+      <div class="timeline">
+        <article class="phase"><h3>Prepare environments</h3><p>All members install the official environment and assets. Member 1 records the canonical setup evidence.</p></article>
+        <article class="phase"><h3>Implement owned cells</h3><p>Each member works in a separate notebook copy and preserves supplied interfaces and cell order.</p></article>
+        <article class="phase"><h3>Run local checks</h3><p>Each owner completes shape assertions, positive tests, negative tests, outputs, and interpretation.</p></article>
+        <article class="phase"><h3>Integrate as a group</h3><p>Insert owned cells into one clean master notebook during a shared session; no solo merge owner.</p></article>
+        <article class="phase"><h3>Execute live model</h3><p>Run baselines and fresh changed prompts; synchronize timings where needed; save raw outputs.</p></article>
+        <article class="phase"><h3>Freeze results</h3><p>Members 3–4 finalize figures and tables. Group verifies counts, thresholds, and failure evidence.</p></article>
+        <article class="phase"><h3>Write assigned sections</h3><p>Use the frozen outputs only. Insert figure/table references and avoid unsupported explanations.</p></article>
+        <article class="phase"><h3>Build and rehearse slides</h3><p>Reuse simplified report visuals, rehearse transitions, and reduce the talk to no more than ten minutes.</p></article>
+        <article class="phase"><h3>Final clean run</h3><p>Clear stale outputs, run top to bottom, complete four review passes, rename all three submission files.</p></article>
+      </div>
+    </section>
+
+    <section id="definition-of-done">
+      <div class="section-heading">
+        <div>
+          <h2>Definition of done</h2>
+          <p>Every member must finish all five contribution types below before their allocation is complete.</p>
+        </div>
+        <span class="section-index">07 · COMPLETION</span>
+      </div>
+
+      <div class="grid grid-2">
+        <article class="card member-card member-1">
+          <h3>Member 1 completion</h3>
+          <ul class="check-list">
+            <li>Task 1 code and tests pass.</li>
+            <li>Activation figure is labelled.</li>
+            <li>Four baseline forwards are genuinely live.</li>
+            <li>Environment and runtime are recorded.</li>
+            <li>Assigned report text is complete.</li>
+            <li>Slides 1–3 are rehearsed.</li>
+            <li>Member 4’s work is independently verified.</li>
+            <li>Adjacent pipeline stages can be explained.</li>
+          </ul>
+        </article>
+        <article class="card member-card member-2">
+          <h3>Member 2 completion</h3>
+          <ul class="check-list">
+            <li>Task 2 code and tests pass.</li>
+            <li>Padding is genuinely demonstrated.</li>
+            <li>Both changed prompts run freshly.</li>
+            <li>Phrase-product rule is correctly labelled.</li>
+            <li>Assigned report text and references are complete.</li>
+            <li>Slides 4, 7, and 10 are rehearsed.</li>
+            <li>Member 1’s work is independently verified.</li>
+            <li>Adjacent pipeline stages can be explained.</li>
+          </ul>
+        </article>
+        <article class="card member-card member-3">
+          <h3>Member 3 completion</h3>
+          <ul class="check-list">
+            <li>Task 3 code and tests pass.</li>
+            <li>Normalized-box error is demonstrated.</li>
+            <li>All localization figures are readable.</li>
+            <li>Ablation and failure claims use live evidence.</li>
+            <li>Assigned report text and captions are complete.</li>
+            <li>Slides 5 and 9 are rehearsed.</li>
+            <li>Member 2’s work is independently verified.</li>
+            <li>Adjacent pipeline stages can be explained.</li>
+          </ul>
+        </article>
+        <article class="card member-card member-4">
+          <h3>Member 4 completion</h3>
+          <ul class="check-list">
+            <li>Tasks 4 and 5 code/tests pass.</li>
+            <li>Padding and Top-K assertions pass.</li>
+            <li>Baseline threshold is exactly 0.23.</li>
+            <li>Every table matches the notebook.</li>
+            <li>Assigned report text is complete.</li>
+            <li>Slides 6 and 8 are rehearsed.</li>
+            <li>Member 3’s work is independently verified.</li>
+            <li>Adjacent pipeline stages can be explained.</li>
+          </ul>
+        </article>
+      </div>
+
+      <div class="table-wrap" style="margin-top: 18px;">
+        <table>
+          <caption>Final project submission checks</caption>
+          <thead><tr><th scope="col">Area</th><th scope="col">Required final state</th><th scope="col">Accountable member</th></tr></thead>
+          <tbody>
+            <tr><td>Notebook source</td><td>No <code>TODO</code>, <code>NotImplementedError</code>, instructor path, or stale instructor output; runs top to bottom.</td><td>All, checked by <span class="member-label member-1">Member 1</span></td></tr>
+            <tr><td>Component evidence</td><td>Shapes, activation, tokens/masks, ROI token, normalized-box error, similarity heatmap, and Top-K table are present.</td><td>All, assembled by <span class="member-label member-4">Member 4</span></td></tr>
+            <tr><td>Live integration</td><td>Raw shapes are correct; four baselines use 0.23; changed prompts are fresh; hardware/runtime and one failure are reported.</td><td>Members 1–4</td></tr>
+            <tr><td>Report</td><td>6–8 pages excluding references/appendix; all required sections, equations/pseudocode, figures, tables, references, and contribution statement.</td><td>All, final passes by Members 1–4</td></tr>
+            <tr><td>Presentation</td><td>8–10 content slides, no more than 10 minutes, all four members prepared for their components and integrated Q&amp;A.</td><td>All</td></tr>
+            <tr><td>File names</td><td><code>TeamXX_SC5006_Project1.ipynb</code>, <code>TeamXX_SC5006_Project1_Report.pdf</code>, and <code>TeamXX_SC5006_Project1_Presentation.pptx</code>.</td><td>Group confirmation</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="page-shell footer-grid">
+      <p>
+        Prepared from <strong>SC5006_Project1_CountGD.pdf</strong> and
+        <strong>SC5006_CountGD_Project_Student.ipynb</strong>. Where they conflict, the PDF governs.
+      </p>
+      <p>Planning document · empirical results remain pending</p>
+    </div>
+  </footer>
+</body>
+</html>
