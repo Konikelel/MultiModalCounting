@@ -16,3 +16,4 @@ output/
 .DS_Store
 ._*
 .env
+.vscode/
